@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Rentas</title>
+    <style>
+        /* Agrega estilos para resaltar las filas en rojo */
+        .row-highlight {
+            background-color: #FF0000; /* Rojo */
+            color: #FFFFFF; /* Texto blanco para mayor contraste */
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Obtén la fecha actual en formato de milisegundos desde la época
+            var fechaActual = new Date().getTime();
+
+            // Obtén todas las filas de la tabla
+            var filas = document.querySelectorAll("tbody tr");
+
+            // Itera sobre las filas
+            filas.forEach(function(fila) {
+                // Obtén la fecha de renta y los días de renta de la fila actual
+                var fechaRenta = new Date(fila.cells[3].textContent).getTime();
+                var diasDeRenta = parseInt(fila.cells[4].textContent);
+
+                // Calcula la fecha de vencimiento sumando los días de renta a la fecha de renta
+                var fechaVencimiento = fechaRenta + (diasDeRenta * 24 * 60 * 60 * 1000);
+
+                // Comprueba si la fecha de vencimiento es menor a la fecha actual
+                if (fechaVencimiento < fechaActual) {
+                    // Agrega la clase de resaltado a la fila
+                    fila.classList.add("row-highlight");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+  <h1>Lista de Rentas</h1>
+
+  <a href="{{ url_for('renta.menu_rentas') }}">Volver al Menú de Rentas</a>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID </th>
+            <th>ID Usuario</th>
+            <th>ID Pelicula</th>
+            <th>Fecha Renta</th>
+            <th>Dias de Renta</th>
+	    <th>Estatus</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for renta in rentas %}
+        <tr>
+	  <td>{{ renta.idRentar }}</td>
+	   <td>{{ renta.idUsuario }}</td>
+                <td>{{ renta.idPelicula }}</td>
+                <td>{{ renta.fecha_renta }}</td>
+                <td>{{ renta.dias_de_renta }}</td>
+                <td>{{ renta.estatus }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

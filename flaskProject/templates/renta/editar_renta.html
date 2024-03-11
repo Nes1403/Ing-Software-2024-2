@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Renta</title>
+    <style>
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+
+        input {
+            width: 200px; 
+            padding: 5px; 
+        }
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Editar Renta</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('renta.editar_renta', id_renta =id_renta) }}">
+        <ul>
+            <li>
+                <label for="estatus">Estatus:</label>
+                <select name="estatus" required>
+                    <option value="True" {% if request.form['estatus'] == 'True' %} selected {% endif %}>True</option>
+                    <option value="False" {% if request.form['estatus'] == 'False' %} selected {% endif %}>False</option>
+                </select>
+            </li>
+
+        </ul>
+
+        <button type="submit">Guardar Cambios</button>
+    </form>
+
+    <a href="{{ url_for('renta.menu_rentas') }}">Cancelar</a>
+
+</body>
+</html>

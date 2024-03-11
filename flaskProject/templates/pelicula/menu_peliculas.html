@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Peliculas</title>
+</head>
+<body>
+
+    <h1>Menú de Peliculas</h1>
+
+    <ul>
+        <li><a href="{{ url_for('pelicula.ver_peliculas') }}">Ver Peliculas</a></li>
+        <li><a href="{{ url_for('pelicula.agregar_pelicula') }}">Agregar Pelicula</a></li>
+	<li><a href="{{ url_for('pelicula.pedir_id', accion='editar') }}">Editar Pelicula</a></li>
+        <li><a href="{{ url_for('pelicula.pedir_id', accion='eliminar') }}">Eliminar Pelicula</a></li>
+    </ul>
+
+    <a href="/">Volver al Menú principal</a>
+
+
+</body>
+</html>

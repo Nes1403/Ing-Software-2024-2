@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuario</title>
+    <style>
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px; 
+        }
+
+        input {
+            width: 200px;
+            padding: 5px; 
+        }
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Editar Usuario</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('usuario.editar_usuario', id_usuario=id_usuario) }}">
+        <ul>
+            <li>
+                <label for="nombre">Nombre:</label>
+                <input type="text" name="nombre" value="{{ request.form['nombre'] }}" required>
+            </li>
+
+            <li>
+                <label for="ap_pat">Apellido Paterno:</label>
+                <input type="text" name="ap_pat" value="{{ request.form['ap_pat'] }}" required>
+            </li>
+
+            <li>
+                <label for="ap_mat">Apellido Materno:</label>
+                <input type="text" name="ap_mat" value="{{ request.form['ap_mat'] }}">
+            </li>
+
+            <li>
+                <label for="password">Contraseña:</label>
+                <input type="password" name="password" value="{{ request.form['password'] }}" required>
+            </li>
+
+            <li>
+                <label for="email">Email:</label>
+                <input type="email" name="email" value="{{ request.form['email'] }}" required>
+            </li>
+        </ul>
+
+        <button type="submit">Guardar Cambios</button>
+    </form>
+
+    <a href="{{ url_for('usuario.menu_usuarios') }}">Cancelar</a>
+
+</body>
+</html>

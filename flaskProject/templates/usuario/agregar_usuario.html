@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Usuario</title>
+
+    <style>
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+
+        input {
+            width: 200px; 
+            padding: 5px; 
+        }
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Agregar Usuario</h1>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+
+<form method="post" action="{{ url_for('usuario.agregar_usuario') }}">
+    <ul>
+        <li>
+            <label for="nombre">Nombre:</label>
+            <input type="text" name="nombre" required>
+        </li>
+
+        <li>
+            <label for="ap_pat">Apellido Paterno:</label>
+            <input type="text" name="ap_pat" required>
+        </li>
+
+        <li>
+            <label for="ap_mat">Apellido Materno:</label>
+            <input type="text" name="ap_mat">
+        </li>
+
+        <li>
+            <label for="password">Contraseña:</label>
+            <input type="password" name="password" required>
+        </li>
+
+        <li>
+            <label for="email">Email:</label>
+            <input type="email" name="email">
+        </li>
+    </ul>
+
+    <button type="submit">Agregar Usuario</button>
+</form>
+
+<a href="{{ url_for('usuario.menu_usuarios') }}">Volver al Menú de Usuarios</a>
+
+</body>
+</html>

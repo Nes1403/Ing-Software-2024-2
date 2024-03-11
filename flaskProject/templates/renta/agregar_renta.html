@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Renta</title>
+
+    <style>
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px; 
+        }
+
+        input {
+            width: 200px;
+            padding: 5px; 
+        }
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Agregar Renta</h1>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+
+<form method="post" action="{{ url_for('renta.agregar_renta') }}">
+    <ul>
+        <li>
+            <label for="idUsuario">id del usuario:</label>
+            <input type="number" name="idUsuario" required>
+        </li>
+
+        <li>
+            <label for="idPelicula">id de la pelicula:</label>
+            <input type="number" name="idPelicula" required>
+        </li>
+
+        <li>
+            <label for="fecha"> Fecha renta:</label>
+            <input type="date" name="fecha">
+        </li>
+
+        <li>
+            <label for="diasRenta">Dias de renta:</label>
+            <input type="number" name="diasRenta" required>
+        </li>
+
+    </ul>
+
+    <button type="submit">Agregar Renta</button>
+</form>
+
+<a href="{{ url_for('renta.menu_rentas') }}">Volver al Menú de Rentas</a>
+
+</body>
+</html>

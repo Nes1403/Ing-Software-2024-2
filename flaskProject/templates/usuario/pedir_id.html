@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedir ID para Acción</title>
+</head>
+<body>
+
+  <h1>Pedir ID para {{ accion.capitalize() }} Usuario</h1>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+    <form method="POST">
+        <label for="id_usuario">ID de Usuario:</label>
+        <input type="text" id="id_usuario" name="id_usuario" required>
+        <button type="submit">{{ accion.capitalize() }} Usuario</button>
+    </form>
+
+    <a href="{{ url_for('usuario.menu_usuarios') }}">Volver al Menú de Usuarios</a>
+
+</body>
+</html>

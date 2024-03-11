@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Pelicula</title>
+
+    <style>
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px; 
+        }
+
+        input {
+            width: 200px;
+            padding: 5px; 
+        }
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Agregar Pelicula</h1>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+
+<form method="post" action="{{ url_for('pelicula.agregar_pelicula') }}">
+    <ul>
+        <li>
+            <label for="nombre">Nombre:</label>
+            <input type="text" name="nombre" required>
+        </li>
+
+        <li>
+            <label for="genero">Genero:</label>
+            <input type="text" name="genero" required>
+        </li>
+
+        <li>
+            <label for="duracion">Duracion (min):</label>
+            <input type="number" name="duracion">
+        </li>
+
+        <li>
+            <label for="inventario">Inventario:</label>
+            <input type="number" name="inventario" required>
+        </li>
+
+    </ul>
+
+    <button type="submit">Agregar pelicula</button>
+</form>
+
+<a href="{{ url_for('pelicula.menu_peliculas') }}">Volver al Menú de peliculas</a>
+
+</body>
+</html>

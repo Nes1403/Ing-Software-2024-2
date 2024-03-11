@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Usuarios</title>
+
+</head>
+<body>
+
+    <h1>Menú de Usuarios</h1>
+
+    <ul>
+        <li><a href="{{ url_for('usuario.ver_usuarios') }}">Ver Usuarios</a></li>
+        <li><a href="{{ url_for('usuario.agregar_usuario') }}">Agregar Usuario</a></li>
+	<li><a href="{{ url_for('usuario.pedir_id', accion='editar') }}">Editar Usuario</a></li>
+        <li><a href="{{ url_for('usuario.pedir_id', accion='eliminar') }}">Eliminar Usuario</a></li>
+    </ul>
+
+    <a href="/">Volver al Menú principal</a>
+
+
+</body>
+</html>

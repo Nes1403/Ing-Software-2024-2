@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Pelicula</title>
+    <style>
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+
+        input {
+            width: 200px; 
+            padding: 5px; 
+        }
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Editar Pelicula</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('pelicula.editar_pelicula', id_pelicula=id_pelicula) }}">
+        <ul>
+            <li>
+                <label for="nombre">Nombre:</label>
+                <input type="text" name="nombre" value="{{ request.form['nombre'] }}" required>
+            </li>
+
+            <li>
+                <label for="genero">Genero:</label>
+                <input type="text" name="genero" value="{{ request.form['genero'] }}" required>
+            </li>
+
+            <li>
+                <label for="duracion">Duracion (min):</label>
+                <input type="number" name="duracion" value="{{ request.form['duracion'] }}">
+            </li>
+
+            <li>
+                <label for="inventario">inventario:</label>
+                <input type="number" name="inventario" value="{{ request.form['inventario'] }}" required>
+            </li>
+
+        </ul>
+
+        <button type="submit">Guardar Cambios</button>
+    </form>
+
+    <a href="{{ url_for('pelicula.menu_peliculas') }}">Cancelar</a>
+
+</body>
+</html>
