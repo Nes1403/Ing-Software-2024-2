@@ -21,8 +21,11 @@ def agregar_pelicula():
     if request.method == 'POST':
         nombre = request.form['nombre']
         genero = request.form['genero']
-        duracion = request.form['duracion']
+        duracion = request.form.get('duracion')
         inventario = request.form['inventario']
+
+        duracion = int(duracion) if duracion else None
+
         
         nueva_pelicula = Pelicula(nombre=nombre, genero=genero, duracion = duracion, inventario=inventario)
         
@@ -64,8 +67,12 @@ def editar_pelicula(id_pelicula):
     if request.method == 'POST':
         pelicula.nombre = request.form['nombre']
         pelicula.genero = request.form['genero']
-        pelicula.duracion = request.form['duracion']
+
         pelicula.inventario = request.form['inventario']
+
+        duracion = request.form.get('duracion')
+
+        pelicula.duracion = int(duracion) if duracion else None
 
         try:
             db.session.commit()

@@ -25,6 +25,12 @@ def agregar_usuario():
         password = request.form['password']
         email = request.form['email']
 
+
+        existe_usuario = Usuario.query.filter_by(email=email).first()
+        if existe_usuario:
+            flash('El correo electrónico ya está registrado. Por favor, elija otro.', 'danger')
+            return redirect(url_for('usuario.agregar_usuario'))
+
         nuevo_usuario = Usuario(nombre=nombre, apPat=ap_pat, apMat=ap_mat, password=password, email=email)
         
         try:
@@ -67,7 +73,16 @@ def editar_usuario(id_usuario):
         usuario.apPat = request.form['ap_pat']
         usuario.apMat = request.form['ap_mat']
         usuario.password = request.form['password']
-        usuario.email = request.form['email']
+        nuevo_email = request.form['email']
+
+        if nuevo_email != usuario.email:
+            existe_usuario = Usuario.query.filter_by(email=nuevo_email).first()
+            if existe_usuario:
+                flash('El correo electrónico ya está registrado. Por favor, elija otro.', 'danger')
+                return redirect(url_for('usuario.editar_usuario', id_usuario=id_usuario))
+
+        usuario.email = nuevo_email
+
 
         try:
             db.session.commit()

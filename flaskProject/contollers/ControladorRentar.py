@@ -23,10 +23,23 @@ def agregar_renta():
         idPelicula = request.form['idPelicula']
         fecha = request.form['fecha']
         diasRenta = request.form['diasRenta']
+
+
+        usuario_existente = Usuario.query.get(idUsuario)
+        if usuario_existente is None:
+            flash('El ID de usuario proporcionado no existe', 'danger')
+            return render_template('renta/agregar_renta.html')
+
+
+        pelicula_existente = Pelicula.query.get(idPelicula)
+        if pelicula_existente is None:
+            flash('El ID de película proporcionado no existe', 'danger')
+            return render_template('renta/agregar_renta.html')
         
         
         nueva_renta = Rentar(idUsuario = idUsuario, idPelicula=idPelicula, fecha_renta=fecha, dias_de_renta= diasRenta, estatus=False)
-        
+
+
         try:
             db.session.add(nueva_renta)
             db.session.commit()
@@ -53,7 +66,7 @@ def pedir_id(accion):
             elif accion == 'eliminar':
                 return redirect(url_for('renta.eliminar_renta', id_renta=id_renta))
         else:
-            flash(f'No se encontró una renta con el ID {id_pelicula}', 'danger')
+            flash(f'No se encontró una renta con el ID {id_renta}', 'danger')
 
     return render_template('renta/pedir_id.html', accion=accion)
 

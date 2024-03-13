@@ -68,7 +68,7 @@
 
             <li>
                 <label for="email">Email:</label>
-                <input type="email" name="email" value="{{ request.form['email'] }}" required>
+                <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" value="{{ request.form['email'] }}" required>
             </li>
         </ul>
 
