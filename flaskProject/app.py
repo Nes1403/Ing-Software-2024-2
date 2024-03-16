@@ -1,6 +1,6 @@
 from modelos import db
 from flask import Flask, render_template
-from contollers.ControllerAlumno import alumno_blueprint
+
 from contollers.ControladorUsuario import usuario_blueprint
 from contollers.ControladorPelicula import pelicula_blueprint
 from contollers.ControladorRentar import renta_blueprint

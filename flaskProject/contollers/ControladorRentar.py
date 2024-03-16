@@ -3,6 +3,7 @@ from modelos import db
 from modelos.Usuario import Usuario
 from modelos.Rentar import Rentar
 from modelos.Pelicula import Pelicula
+from datetime import datetime
 
 renta_blueprint = Blueprint('renta', __name__, url_prefix='/renta')
 
@@ -24,7 +25,11 @@ def agregar_renta():
         fecha = request.form['fecha']
         diasRenta = request.form['diasRenta']
 
-
+        fecha_actual = datetime.now().strftime('%Y-%m-%d')
+        if fecha > fecha_actual:
+            flash('La fecha de renta no puede ser futura', 'danger')
+            return render_template('renta/agregar_renta.html')
+        
         usuario_existente = Usuario.query.get(idUsuario)
         if usuario_existente is None:
             flash('El ID de usuario proporcionado no existe', 'danger')
