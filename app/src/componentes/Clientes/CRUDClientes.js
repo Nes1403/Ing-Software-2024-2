@@ -1,41 +1,43 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
+import "./CRUDClientes.css";
 import ClienteForm from "./ClienteForm/ClienteFormAgregar";
 import ClienteFormActualizar from "./ClienteForm/ClienteFormActualizar";
 
-const CRUDClientes = (props) => {
+const CRUDClientes = ({setClientes, clientes}) => {
 
 
   const guardaClienteHandler = (clienteIngresado) => {
-    if(props.clientes.find(c => c.email === clienteIngresado.email) && clienteIngresado.email !== ""){
+    if(clientes.find(c => c.email === clienteIngresado.email) && clienteIngresado.email !== ""){
       alert("El correo ya esta registrado");
       return;
     }
-    if(props.clientes.length === 0){
+    if(clientes.length === 0){
       clienteIngresado.idCliente = 1;
     }else{
-      clienteIngresado.idCliente = props.clientes[props.clientes.length - 1].idCliente + 1
+      clienteIngresado.idCliente = clientes[clientes.length - 1].idCliente + 1
     }
-    const nuevosClientes = [...props.clientes, clienteIngresado];
-    props.setClientes(nuevosClientes);
+    const nuevosClientes = [...clientes, clienteIngresado];
+    setClientes(nuevosClientes);
   };
   const actualizarCliente = (clienteIngresado) => {
-   if(props.clientes.find(c => c.email === clienteIngresado.email && c.idCliente !== clienteIngresado.idCliente) && clienteIngresado.email !== ""){
+   if(clientes.find(c => c.email === clienteIngresado.email && c.idCliente !== clienteIngresado.idCliente) && clienteIngresado.email !== ""){
       alert("El correo ya esta registrado");
       return;
   }
-    const nuevosClientes = [...props.clientes];
+    const nuevosClientes = [...clientes];
     const indice = nuevosClientes.findIndex(c => c.idCliente === clienteIngresado.idCliente);
     nuevosClientes[indice] = clienteIngresado;
-    props.setClientes(nuevosClientes);
+    setClientes(nuevosClientes);
   };
 
   const eliminarCliente = (index) => {
 
-    const nuevosClientes = [...props.clientes];
+    const nuevosClientes = [...clientes];
 
     nuevosClientes.splice(index, 1);
 
-	props.setClientes(nuevosClientes);
+	setClientes(nuevosClientes);
   };
 
 
@@ -57,7 +59,7 @@ const CRUDClientes = (props) => {
           </tr>
         </thead>
         <tbody>
-          {props.clientes.map((cliente, index) => (
+          {clientes.map((cliente, index) => (
             <tr key={index}>
               <td>{cliente.idCliente}</td>
               <td>{cliente.nombre}</td>
@@ -76,7 +78,12 @@ const CRUDClientes = (props) => {
       <h3>Agregar Cliente</h3>
       <ClienteForm onGuardarCliente={guardaClienteHandler} />
       <h3>Actualizar Cliente</h3>
-      <ClienteFormActualizar clientes = {props.clientes} onActualizarCliente = {actualizarCliente}> </ClienteFormActualizar>
+      <ClienteFormActualizar clientes = {clientes} onActualizarCliente = {actualizarCliente}> </ClienteFormActualizar>
+      <div>
+      <Link to="/">
+        <button>Menu principal</button>
+      </Link>
+    </div>
     </div>
   );
 };

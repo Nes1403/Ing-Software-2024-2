@@ -1,0 +1,39 @@
+.nueva-renta__controls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .nueva-renta__control {
+    margin-bottom: 10px;
+  }
+  
+  .nueva-renta__control label {
+    margin-right: 10px;
+  }
+  
+  .nueva-renta__control input[type="text"],
+  .nueva-renta__control input[type="password"] {
+    width: 250px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .nueva-renta__actions {
+    margin-top: 20px;
+  }
+  
+  .nueva-renta__actions button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .nueva-renta__actions button:hover {
+    background-color: #0056b3;
+  }
+  
